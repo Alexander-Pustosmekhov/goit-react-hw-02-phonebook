@@ -1,17 +1,55 @@
 import React from 'react';
-// import { nanoid } from 'nanoid';
+import { nanoid } from 'nanoid';
 import Form from './Form/Form';
 import Section from './Section/Section';
+import Contacts from './Contacts/Contacts';
+import Filter from './Filter/Filter';
 
 class App extends React.Component {
   state = {
-    contacts: [],
-    name: '',
+    contacts: [
+      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+    ],
+    filter: '',
+    // name: '',
+    // number: '',
+  };
+
+  getFilteredContacts = () => {
+    const filteredContacts = [];
+    this.state.contacts.forEach(e => {
+      if (
+        e.name.toLocaleLowerCase().includes(this.state.filter.toLowerCase())
+      ) {
+        filteredContacts.push(e);
+      }
+    });
+    return filteredContacts;
+  };
+
+  handleChange = e => {
+    this.setState({ [e.currentTarget.name]: e.currentTarget.value });
   };
 
   formSubmitHandler = data => {
-    console.log(data);
-    this.setState({ name: [data.name] });
+    if (this.state.contacts.some(e => e.name === data.name)) {
+      alert(`${data.name} is already in contacts.`);
+      return;
+    }
+    const newContact = { name: data.name, number: data.number, id: nanoid() };
+    this.setState(prevState => ({
+      contacts: [...prevState.contacts, newContact],
+    }));
+  };
+
+  removeContact = id => {
+    console.log(id);
+    this.setState({
+      contacts: this.state.contacts.filter(contact => contact.id !== id),
+    });
   };
 
   render() {
@@ -20,7 +58,15 @@ class App extends React.Component {
         <Section title="Phonebook">
           <Form onSubmit={this.formSubmitHandler} />
         </Section>
-        <Section title="Contacts"></Section>
+        <Section title="Contacts">
+          <Contacts
+            contacts={this.state.contacts}
+            filteredContacts={this.getFilteredContacts}
+            onDelete={this.removeContact}
+          >
+            <Filter input={this.state.filter} onChange={this.handleChange} />
+          </Contacts>
+        </Section>
       </div>
     );
   }
