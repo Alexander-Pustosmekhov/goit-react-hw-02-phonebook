@@ -4,6 +4,7 @@ import Form from './Form/Form';
 import Section from './Section/Section';
 import Contacts from './Contacts/Contacts';
 import Filter from './Filter/Filter';
+import s from './App.module.css';
 
 class App extends React.Component {
   state = {
@@ -14,8 +15,6 @@ class App extends React.Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
-    // name: '',
-    // number: '',
   };
 
   getFilteredContacts = () => {
@@ -46,7 +45,6 @@ class App extends React.Component {
   };
 
   removeContact = id => {
-    console.log(id);
     this.setState({
       contacts: this.state.contacts.filter(contact => contact.id !== id),
     });
@@ -54,7 +52,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className={s.contactsBook}>
         <Section title="Phonebook">
           <Form onSubmit={this.formSubmitHandler} />
         </Section>

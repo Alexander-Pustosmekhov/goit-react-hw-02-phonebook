@@ -1,10 +1,12 @@
 import React from 'react';
+import s from './Filter.module.css';
+import PropTypes from 'prop-types';
 
 class Filter extends React.Component {
   render() {
     return (
       <div>
-        <p>Find contacts by name</p>
+        <p className={s.text}>Find contacts by name</p>
         <input
           type="text"
           name="filter"
@@ -17,5 +19,10 @@ class Filter extends React.Component {
     );
   }
 }
+
+Filter.propTypes = {
+  input: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
 
 export default Filter;
