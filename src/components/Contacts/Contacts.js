@@ -5,19 +5,21 @@ import PropTypes from 'prop-types';
 
 class Contacts extends React.Component {
   render() {
+    const { children, filteredContacts, onDelete } = this.props;
+    const filteredContactsArray = filteredContacts();
     return (
       <div className={s.contacts}>
-        {this.props.children}
-        {this.props.filteredContacts().length ? (
+        {children}
+        {filteredContactsArray.length ? (
           <ul className={s.list}>
-            {this.props.filteredContacts().map(e => {
+            {filteredContactsArray.map(e => {
               return (
                 <UserContact
                   key={e.id}
                   id={e.id}
                   name={e.name}
                   number={e.number}
-                  onDelete={this.props.onDelete}
+                  onDelete={onDelete}
                 />
               );
             })}

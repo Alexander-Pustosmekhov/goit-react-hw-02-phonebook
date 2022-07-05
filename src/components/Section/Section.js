@@ -4,10 +4,11 @@ import PropTypes from 'prop-types';
 
 class Section extends React.Component {
   render() {
+    const { title, children } = this.props;
     return (
       <section>
-        <h2 className={s.title}>{this.props.title}</h2>
-        {this.props.children}
+        <h2 className={s.title}>{title}</h2>
+        {children}
       </section>
     );
   }

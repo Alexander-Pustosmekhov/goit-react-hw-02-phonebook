@@ -4,14 +4,15 @@ import PropTypes from 'prop-types';
 
 class UserContact extends React.Component {
   render() {
+    const { name, number, id, onDelete } = this.props;
     return (
       <li className={s.item}>
-        &#128222; {this.props.name}: {this.props.number}
+        &#128222; {name}: {number}
         <button
           className={s.button}
           type="button"
           onClick={() => {
-            this.props.onDelete(this.props.id);
+            onDelete(id);
           }}
         >
           Delete

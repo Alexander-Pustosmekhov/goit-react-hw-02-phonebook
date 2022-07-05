@@ -51,6 +51,7 @@ class App extends React.Component {
   };
 
   render() {
+    const { contacts, filter } = this.state;
     return (
       <div className={s.contactsBook}>
         <Section title="Phonebook">
@@ -58,11 +59,11 @@ class App extends React.Component {
         </Section>
         <Section title="Contacts">
           <Contacts
-            contacts={this.state.contacts}
+            contacts={contacts}
             filteredContacts={this.getFilteredContacts}
             onDelete={this.removeContact}
           >
-            <Filter input={this.state.filter} onChange={this.handleChange} />
+            <Filter input={filter} onChange={this.handleChange} />
           </Contacts>
         </Section>
       </div>
